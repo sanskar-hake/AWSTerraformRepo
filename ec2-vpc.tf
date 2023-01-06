@@ -86,11 +86,6 @@ resource "aws_security_group_rule" "InboundRule" {
     security_group_id = aws_security_group.MySG.id
 }
 
-# resource "aws_key_pair" "NewKeyPair" {
-#   key_name   = "NewTerraformKeyPair"
-#   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCEIsB9im2NUCKk41j2wSqUU5sl+sbQn5W/96B+QRXUMtxWzPMKR1yzOfFYFF3t4FnyrTj1rez84Ae0kGKbWfFkni9YbaAmYNBEp2Yuw4N1NmlbF9xHsKAGmOHqqfn4RnkXJB6/ZoCUqEpyMza+Zlrb9UHOr2plzPk9hJoWb5XqejQRFhFBv1MnlQp7sDGC9kM009T7uGIDabtNGVcW3qH3a4doMVEq0fH1FrWdwusqPOin4mAy1GLPz1HNGBOtBVzib4B2xM6W20Ph2ZgbbcLXQMw4AujFQyXF8NkZqNPWbICQSE9szsdHED0oq3TL6Kyivlgp8wLfMdZdcNB/HTVN"
-# }
-
 resource "aws_instance" "MyInstance"{
     count = var.instance_count
     instance_type = element(var.instance_types,count.index)
@@ -100,13 +95,6 @@ resource "aws_instance" "MyInstance"{
     # provisioner "remote-exec" {
       
     #   inline = [
-    #     # "yum update -y",
-    #     # "yum install -y httpd",
-    #     # "systemctl start httpd",
-    #     # "systemctl enable httpd",
-    #     # "cd /var/www/html",
-    #     # "echo \"<br>\" >> index.html",
-    #     # "echo \"<h1>Hello World\" > /var/www/html/index.html",
     #   "sudo amazon-linux-extras install -y nginx1.12",
     #   "sudo systemctl start nginx",
     #   "echo 'Hello Master'"
