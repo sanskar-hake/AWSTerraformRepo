@@ -60,6 +60,7 @@ resource "aws_instance" "MyInstance"{
     ami = var.image
     key_name = aws_key_pair.MyKeyPair.key_name
     subnet_id = aws_subnet.MyPublicSubnet.id
+    vpc_security_group_ids = [ aws_security_group.MySG.id ]
     # provisioner "remote-exec" {
       
     #   inline = [
