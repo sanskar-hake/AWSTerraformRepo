@@ -61,21 +61,26 @@ resource "aws_instance" "MyInstance"{
     key_name = aws_key_pair.MyKeyPair.key_name
     subnet_id = aws_subnet.MyPublicSubnet.id
     vpc_security_group_ids = [ aws_security_group.MySG.id ]
-    # provisioner "remote-exec" {
+    provisioner "remote-exec" {
       
-    #   inline = [
-    #   "sudo amazon-linux-extras install -y nginx1.12",
-    #   "sudo systemctl start nginx",
-    #   "echo 'Hello Master'"
-    #   ]
+      inline = [
+        # "sudo su",
+        "sudo git clone https://github.com/wangso/KubeEdge-demo.git /root/KubeEdge-demo",
+        "sudo sed -i \"s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g\" /etc/ssh/sshd_config",
+        "sudo sed -i \"s/PasswordAuthentication no/PasswordAuthentication yes/g\" /etc/ssh/sshd_config",
+        "sudo systemctl restart sshd",
+        "echo ${var.pwd}\"\\n\"${var.pwd} | sudo passwd",
+        # "cd /root",
+        "echo | ${element(var.command1,count.index)} ${self.public_ip} -P ''"
+      ]
       
-    #   connection {
-    #   type = "ssh"
-    #   user = "ubuntu"
-    #   private_key = file("./mykeypair")
-    #   host = self.public_ip
-    #   }
-    # }
+      connection {
+      type = "ssh"
+      user = "ubuntu"
+      private_key = file("./mykeypair")
+      host = self.public_ip
+      }
+    }
     tags = {
         Name = element(var.instance_names,count.index)
     }

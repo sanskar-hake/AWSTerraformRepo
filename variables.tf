@@ -3,6 +3,11 @@ variable "image" {
   default = "ami-0c7cb70d3eb61492b"
 }
 
+variable "pwd" {
+  type = string
+  default = "admin"
+}
+
 variable "instance_count" {
   default = "3"
 }
@@ -29,4 +34,15 @@ variable "from_port" {
 variable "to_port" {
   type = list
   default = [8080,10000,2380,10002,6443,22,32767,10253]
+}
+
+variable "command1" {
+    type = list
+    default = ["sudo bash /root/KubeEdge-demo/kubeedge-cloud-install/cloud-core-install.sh","sudo bash /root/KubeEdge-demo/kubeedge-edge-install/edge-core-install.sh","sudo bash /root/KubeEdge-demo/kubeedge-edge-install/edge-core-install.sh"]
+    # default = ["bash /root/KubeEdge-demo/kubeedge-cloud-install/cloud-core-install.sh","bash /root/KubeEdge-demo/kubeedge-edge-install/edge-core-install.sh","bash /root/KubeEdge-demo/kubeedge-edge-install/edge-core-install.sh"]
+}
+
+variable "command2" {
+    type = list
+    default = ["sudo bash /root/KubeEdge-demo/kubeedge-cloud-install/obtain-token.sh","",""]
 }
